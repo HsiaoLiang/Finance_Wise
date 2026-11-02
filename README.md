@@ -1,25 +1,30 @@
 # Finance Wise
 
-把 Wise 匯出的交易 CSV，變成一頁看得懂的消費總覽。整個 App 就是**一個 `index.html`**：沒有後端、沒有建置流程、沒有依賴套件，資料不會離開你的瀏覽器。
+Turn a Wise CSV export into one readable page of your spending. The whole app is a
+single `index.html`: no backend, no build step, no dependencies — and your data never
+leaves the browser.
 
-*Turn a Wise CSV export into one readable page of your spending. The whole app is a single `index.html` — no backend, no build step, no dependencies, and your data never leaves the browser.*
+**[Open it →](https://hsiaoliang.github.io/Finance_Wise/)**
 
-## 功能
+## Features
 
-- **消費分析** — 支出趨勢、類別占比、商家排行、一週消費節奏、累計支出、異常交易偵測
-- **帳務總覽** — 帳戶餘額、收入來源分類、收支流向、本月預估
-- **預算** — 依幣別與類別設定預算，追蹤使用進度
-- **交易紀錄** — 搜尋、篩選日期區間、逐筆明細、自訂分類與標籤規則
-- **中文／English** — 工具列可隨時切換，首次進入依瀏覽器語言自動選擇；日期與數字格式跟著語言走
-- 深淺色主題、匯出篩選後的 CSV
+- **Overview** — account balance, key figures, spending trend, category share, recent transactions
+- **Analysis** — merchant ranking, weekday rhythm, cumulative spend, recurring charges, outlier detection
+- **Money flow** — top-ups, internal transfers, refunds and real income kept apart, with a balance trend
+- **Budgets** — a monthly budget per category and currency, with a month-end projection at your current pace
+- **Transactions** — search, date filtering, per-charge detail, and your own category and tag rules
+- **English / 中文** — switch any time from the toolbar; dates and numbers follow the language
+- Light and dark themes, and a CSV export of whatever you have filtered
 
-## 使用方式
+## Usage
 
-### 1. 線上直接開
+### Online
 
-開 [GitHub Pages 頁面](https://hsiaoliang.github.io/Finance_Wise/)，點「選擇檔案」或直接把 Wise 的 CSV 拖進頁面。檔案只在瀏覽器本機解析，不會上傳到任何伺服器。
+Open the [GitHub Pages site](https://hsiaoliang.github.io/Finance_Wise/) and either choose
+a file or drag your Wise CSV onto the page. It is parsed locally in the browser and
+uploaded nowhere.
 
-### 2. 在本機跑（可自動讀取資料夾裡的 CSV）
+### Locally (reads the CSV from the folder for you)
 
 ```bash
 git clone https://github.com/HsiaoLiang/Finance_Wise.git
@@ -27,30 +32,55 @@ cd Finance_Wise
 python3 -m http.server 8777
 ```
 
-然後開 http://localhost:8777 。
+Then open http://localhost:8777.
 
-把 Wise 匯出的檔案放成 `Sources/Wise Transaction History.csv`，頁面載入時就會自動讀取，按「重新讀取」可更新到最新內容。
+Save your export as `Sources/Wise Transaction History.csv` and the page reads it on load;
+"Re-read" picks up the latest content without touching the filters.
 
-## 取得 Wise CSV
+## Getting your Wise CSV
 
-Wise → Balances → Statement → 選擇幣別與日期區間 → 下載 **CSV**。
+Wise → Balances → Statement → pick a currency and a date range → download **CSV**.
 
-## 語言
+Both Wise export shapes work: the transaction history and the account statement. Several
+files can be imported at once, and duplicates are dropped.
 
-右上角的 `EN` / `中` 按鈕可切換介面語言。第一次打開時依瀏覽器語言決定（`zh-*` 用中文，其餘用英文），之後記在設定檔與瀏覽器裡。
+## Language
 
-交易類別沿用 Wise CSV 原本的英文（Groceries、Eating out…）：中文介面會譯成中文，英文介面直接顯示原值。你自己建立的分類與標籤兩邊都原樣保留。
+The `EN` / `中` button in the toolbar switches the interface. The first visit follows your
+browser (`zh-*` gets Chinese, everything else English); after that the choice is remembered
+in the settings file.
 
-## 設定檔
+Transaction categories keep the English names Wise gives them (Groceries, Eating out, …):
+the Chinese interface translates them, the English one shows them as they come. Categories
+and tags you create yourself are left untouched in both.
 
-規則、預算、偏好存在 `finance-wise-settings.json`（與 `index.html` 同層）。複製範本開始：
+## Settings file
+
+Rules, budgets and preferences live in `finance-wise-settings.json`, next to `index.html`.
+Start from the template:
 
 ```bash
 cp finance-wise-settings.example.json finance-wise-settings.json
 ```
 
-在 Chrome / Edge 可以用設定面板的「連結設定檔」直接寫回這個檔案；其他瀏覽器則用「下載一份」再覆蓋。
+In Chrome and Edge, "Link settings file" in the settings panel writes back to that file
+directly. Other browsers use "Download a copy" and overwrite it yourself.
 
-## 隱私
+## Privacy
 
-`Sources/*.csv` 和 `finance-wise-settings.json` 已列入 `.gitignore`，不會被提交。這個 repo 裡沒有任何真實交易資料。
+`Sources/*.csv` and `finance-wise-settings.json` are in `.gitignore`, so they are never
+committed. This repository contains no real transaction data.
+
+## How it works
+
+`index.html` holds everything: styles, a CSV parser, the charts (hand-written SVG, no
+chart library) and the rendering. The pipeline is parse → normalise → filter → aggregate →
+draw, and nothing in it talks to the network.
+
+Source strings are English and double as the keys of the `ZH` dictionary, so a missing
+translation falls back to English rather than breaking. Static markup is collected once at
+boot and swapped on a language switch; everything built in JS goes through `t()`.
+
+## Not affiliated with Wise
+
+A personal tool for reading Wise CSV exports. Not an official Wise product.

@@ -1,0 +1,25 @@
+{
+  "app": "finance-wise",
+  "version": 1,
+  "rules": [
+    {
+      "match": "archer no.6",
+      "label": "Archer No.6",
+      "category": "剪髮",
+      "tags": []
+    }
+  ],
+  "budgets": {
+    "GBP|Groceries": 500,
+    "GBP|Eating out": 150
+  },
+  "balances": {
+    "GBP": 0
+  },
+  "prefs": {
+    "range": "30",
+    "gran": "day",
+    "theme": "light",
+    "currency": "GBP"
+  }
+}

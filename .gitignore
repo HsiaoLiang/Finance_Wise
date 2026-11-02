@@ -1,0 +1,12 @@
+# 個人資料：真實的 Wise 匯出檔與本機設定，不要進版控
+Sources/*.csv
+finance-wise-settings.json
+
+# macOS
+.DS_Store
+._*
+
+# 編輯器 / 本機工具
+.claude/
+.vscode/
+.idea/

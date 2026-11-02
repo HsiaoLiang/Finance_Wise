@@ -1,0 +1,2 @@
+把 Wise 匯出的 CSV 放在這個資料夾，檔名用 Wise Transaction History.csv，
+網頁開啟時就會自動讀取。這裡的 .csv 已被 .gitignore 排除，不會上傳。

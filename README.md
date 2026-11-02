@@ -2,12 +2,15 @@
 
 把 Wise 匯出的交易 CSV，變成一頁看得懂的消費總覽。整個 App 就是**一個 `index.html`**：沒有後端、沒有建置流程、沒有依賴套件，資料不會離開你的瀏覽器。
 
+*Turn a Wise CSV export into one readable page of your spending. The whole app is a single `index.html` — no backend, no build step, no dependencies, and your data never leaves the browser.*
+
 ## 功能
 
 - **消費分析** — 支出趨勢、類別占比、商家排行、一週消費節奏、累計支出、異常交易偵測
 - **帳務總覽** — 帳戶餘額、收入來源分類、收支流向、本月預估
 - **預算** — 依幣別與類別設定預算，追蹤使用進度
 - **交易紀錄** — 搜尋、篩選日期區間、逐筆明細、自訂分類與標籤規則
+- **中文／English** — 工具列可隨時切換，首次進入依瀏覽器語言自動選擇；日期與數字格式跟著語言走
 - 深淺色主題、匯出篩選後的 CSV
 
 ## 使用方式
@@ -31,6 +34,12 @@ python3 -m http.server 8777
 ## 取得 Wise CSV
 
 Wise → Balances → Statement → 選擇幣別與日期區間 → 下載 **CSV**。
+
+## 語言
+
+右上角的 `EN` / `中` 按鈕可切換介面語言。第一次打開時依瀏覽器語言決定（`zh-*` 用中文，其餘用英文），之後記在設定檔與瀏覽器裡。
+
+交易類別沿用 Wise CSV 原本的英文（Groceries、Eating out…）：中文介面會譯成中文，英文介面直接顯示原值。你自己建立的分類與標籤兩邊都原樣保留。
 
 ## 設定檔
 

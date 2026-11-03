@@ -81,6 +81,10 @@ Source strings are English and double as the keys of the `ZH` dictionary, so a m
 translation falls back to English rather than breaking. Static markup is collected once at
 boot and swapped on a language switch; everything built in JS goes through `t()`.
 
+## License
+
+[MIT](LICENSE).
+
 ## Not affiliated with Wise
 
 A personal tool for reading Wise CSV exports. Not an official Wise product.
